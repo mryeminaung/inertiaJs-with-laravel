@@ -30,7 +30,7 @@ export default function Authenticated({ user, header, children }) {
                                 </NavLink>
                                 <NavLink
                                     href={route("posts.index")}
-                                    active={route().current("posts.index")}
+                                    active={route().current("posts.*")}
                                 >
                                     Posts
                                 </NavLink>

@@ -13,7 +13,7 @@ export default function About({ auth }) {
         >
             <Head title="About" />
 
-            <div className="mx-auto text-white max-w-7xl px sm:px-4">
+            <div className="mx-auto max-w-7xl px sm:px-4">
                 <div className="px-4">Comming Soon...</div>
             </div>
         </AuthenticatedLayout>

@@ -7,6 +7,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class PostResource extends JsonResource
 {
+
     /**
      * Transform the resource into an array.
      *
@@ -16,7 +17,7 @@ class PostResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => $this->title,
+            'title' => ucwords($this->title),
             'body' => substr($this->body, 0, 30),
             'createdAt' => $this->created_at->diffForHumans(),
         ];
