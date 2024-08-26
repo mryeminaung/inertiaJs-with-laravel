@@ -3,7 +3,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, useForm, usePage } from "@inertiajs/react";
 
 export default function Edit({ auth, post }) {
-    const { data, setData, put, processing, errors, reset, clearErrors,  } =
+    const { data, setData, put, processing, errors, reset, clearErrors } =
         useForm({
             title: post.title,
             body: post.body,
@@ -13,9 +13,10 @@ export default function Edit({ auth, post }) {
         e.preventDefault();
 
         put(route("posts.update", post), {
-            onFinish: () => reset("title", "body"),
+            preserveState: true,
+            onSuccess: () => reset("title", "body"),
         });
-        // clearErrors("title", "body");
+        clearErrors("title", "body");
     };
 
     return (

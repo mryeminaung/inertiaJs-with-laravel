@@ -1,6 +1,6 @@
 import InputError from "@/Components/InputError";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link, useForm, usePage } from "@inertiajs/react";
+import { Head, Link, useForm } from "@inertiajs/react";
 
 export default function Create({ auth }) {
     const { data, setData, post, processing, errors, reset, clearErrors } =
@@ -9,14 +9,12 @@ export default function Create({ auth }) {
             body: "",
         });
 
-    console.log(usePage());
-
     const submit = (e) => {
         e.preventDefault();
 
         post(route("posts.store"), {
             preserveState: true,
-            onFinish: () => reset("title", "body"),
+            onSuccess: () => reset("title", "body"),
         });
         clearErrors("title", "body");
     };
