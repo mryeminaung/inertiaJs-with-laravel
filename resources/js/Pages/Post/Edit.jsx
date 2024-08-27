@@ -1,6 +1,6 @@
 import InputError from "@/Components/InputError";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link, useForm, usePage } from "@inertiajs/react";
+import { Head, Link, useForm } from "@inertiajs/react";
 
 export default function Edit({ auth, post }) {
     const { data, setData, put, processing, errors, reset, clearErrors } =

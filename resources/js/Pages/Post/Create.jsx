@@ -3,16 +3,28 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
 
 export default function Create({ auth }) {
-    const { data, setData, post, processing, errors, reset, clearErrors } =
-        useForm({
-            title: "",
-            body: "",
-        });
+    const {
+        data,
+        setData,
+        post,
+        processing,
+        isDirty,
+        progress,
+        errors,
+        reset,
+        clearErrors,
+    } = useForm({
+        title: "",
+        body: "",
+    });
 
     const submit = (e) => {
         e.preventDefault();
 
         post(route("posts.store"), {
+            onBefore: () =>
+                confirm("Are you sure you want to create this post?"),
+
             preserveState: true,
             onSuccess: () => reset("title", "body"),
         });
@@ -32,7 +44,7 @@ export default function Create({ auth }) {
 
             <div className="mx-auto mt-3 max-w-7xl px sm:px-4">
                 <div className="p-4 space-y-3 overflow-hidden bg-white rounded-lg shadow-sm dark:bg-gray-600">
-                    <form onSubmit={submit}>
+                    <form onSubmit={submit} encType="multipart/form-data">
                         <div className="mb-6">
                             <label
                                 htmlFor="title"
@@ -78,6 +90,26 @@ export default function Create({ auth }) {
                                 message={errors.body}
                                 className="mt-2"
                             />
+                        </div>
+                        <div className="mb-6">
+                            <label
+                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                for="file_input"
+                            >
+                                Upload file
+                            </label>
+                            <input
+                                className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                id="file_input"
+                                name="file_input"
+                                type="file"
+                            />
+
+                            {progress && (
+                                <progress value={progress.percentage} max="100">
+                                    {progress.percentage}%
+                                </progress>
+                            )}
                         </div>
                         <div className="flex items-center justify-end">
                             <Link

@@ -17,11 +17,13 @@ class PostController extends Controller
     {
         // sleep(1);
 
-        $posts = new PostCollection(Post::paginate(5));
+        // dd(Post::latest()->filter(request(['search']))->paginate(5));
 
-        // dd(request()->fullUrlWithQuery(['query']));
+        $posts = new PostCollection(Post::latest()->filter(request(['search']))->paginate(5)->withQueryString(request(['search'])));
 
-        return Inertia::render('Post/Index', ['posts' => $posts]);
+        // dd($posts);
+
+        return Inertia::render('Post/Index', ['posts' => $posts, 'filter' => request()->only('search')]);
     }
 
     /**
